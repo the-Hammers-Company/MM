@@ -1,8 +1,7 @@
 /************************************************************************
- * NASA Docket No. GSC-18,923-1, and identified as “Core Flight
- * System (cFS) Memory Manager Application version 2.5.1”
+ * NASA Docket No. GSC-19,200-1, and identified as "cFS Draco"
  *
- * Copyright (c) 2021 United States Government as represented by the
+ * Copyright (c) 2023 United States Government as represented by the
  * Administrator of the National Aeronautics and Space Administration.
  * All Rights Reserved.
  *
@@ -17,24 +16,11 @@
  * limitations under the License.
  ************************************************************************/
 
-/**
- * @file
- *   CFS Memory Manager (MM) Application Performance IDs
- */
-#ifndef MM_PERFIDS_H
-#define MM_PERFIDS_H
+#ifndef EDS_MM_TOPICID_VALUES_H
+#define EDS_MM_TOPICID_VALUES_H
 
-/**
- * \ingroup cfsmmmissioncfg
- * \{
- */
+#include "cfe_mission_eds_designparameters.h"
 
-#define MM_APPMAIN_PERF_ID         30 /**< \brief Application main performance ID */
-#define MM_SEGBREAK_PERF_ID        31 /**< \brief Memory processing segment break performance ID */
-#define MM_EEPROM_POKE_PERF_ID     32 /**< \brief EEPROM poke performance ID */
-#define MM_EEPROM_FILELOAD_PERF_ID 33 /**< \brief EEPROM file load performance ID */
-#define MM_EEPROM_FILL_PERF_ID     34 /**< \brief EEPROM fill performance ID */
+#define MM_MISSION_TIDVAL(x) EdsParam_CFE_MISSION_MM_##x##_TOPICID
 
-/**\}*/
-
-#endif
+#endif /* EDS_MM_TOPICID_VALUES_H */

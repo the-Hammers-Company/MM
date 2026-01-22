@@ -1,8 +1,7 @@
 /************************************************************************
- * NASA Docket No. GSC-18,923-1, and identified as “Core Flight
- * System (cFS) Memory Manager Application version 2.5.1”
+ * NASA Docket No. GSC-19,200-1, and identified as "cFS Draco"
  *
- * Copyright (c) 2021 United States Government as represented by the
+ * Copyright (c) 2023 United States Government as represented by the
  * Administrator of the National Aeronautics and Space Administration.
  * All Rights Reserved.
  *
@@ -27,6 +26,9 @@
 /*************************************************************************
  * Includes
  *************************************************************************/
+
+#include "common_types.h"
+#include "mm_extern_typedefs.h"
 #include "mm_msg.h"
 
 /*************************************************************************
@@ -61,29 +63,6 @@ void MM_ResetHk(void);
 void MM_SegmentBreak(void);
 
 /**
- * \brief Verify command message length
- *
- *  \par Description
- *       This routine will check if the actual length of a software bus
- *       command message matches the expected length and send an
- *       error event message if a mismatch occurs
- *
- *  \par Assumptions, External Events, and Notes:
- *       None
- *
- *  \param [in]   MsgPtr           Pointer to message
- *  \param [in]   ExpectedLength   The expected length of the message
- *                                 based upon the command code
- *
- *  \return Boolean length validation status
- *  \retval true  Length matches expected
- *  \retval false Length does not match expected
- *
- *  \sa #MM_CMD_LEN_ERR_EID
- */
-bool MM_VerifyCmdLength(const CFE_MSG_Message_t *MsgPtr, size_t ExpectedLength);
-
-/**
  * \brief Verify memory peek and poke parameters
  *
  *  \par Description
@@ -101,11 +80,10 @@ bool MM_VerifyCmdLength(const CFE_MSG_Message_t *MsgPtr, size_t ExpectedLength);
  *  \param [in]   SizeInBits   The bit width for the requested
  *                             peek or poke operation
  *
- *  \return Boolean peek/poke parameter validation status
- *  \retval true  Validation passed
- *  \retval false Validation failed
+ *  \return Execution status
  */
-bool MM_VerifyPeekPokeParams(cpuaddr Address, MM_MemType_t MemType, size_t SizeInBits);
+int32 MM_VerifyPeekPokeParams(cpuaddr Address, MM_MemType_Enum_t MemType,
+                              size_t SizeInBits);
 
 /**
  * \brief Verify memory load and dump parameters
@@ -126,11 +104,10 @@ bool MM_VerifyPeekPokeParams(cpuaddr Address, MM_MemType_t MemType, size_t SizeI
  *  \param [in]   VerifyType   Flag indicating whether the requested
  *                             operation is a load or a dump.
  *
- *  \return Boolean load/dump parameter validation status
- *  \retval true  Validation passed
- *  \retval false Validation failed
+ *  \return Execution status
  */
-bool MM_VerifyLoadDumpParams(cpuaddr Address, MM_MemType_t MemType, size_t SizeInBytes, uint8 VerifyType);
+int32 MM_VerifyLoadDumpParams(cpuaddr Address, MM_MemType_Enum_t MemType,
+                              size_t SizeInBytes, uint8 VerifyType);
 
 /**
  * \brief Verify 32 bit alignment
@@ -193,13 +170,11 @@ bool MM_Verify16Aligned(cpuaddr Address, size_t Size);
  *  \param [out]  ResolvedAddr     The fully resolved address. Only valid
  *                                 if the return value is TRUE
  *
- *  \return Boolean execution status
- *  \retval true  Symbolic address resolved
- *  \retval false Symbolic address not resolved
+ *  \return Execution status
  *
  *  \sa #OS_SymbolLookup
  */
-bool MM_ResolveSymAddr(MM_SymAddr_t *SymAddr, cpuaddr *ResolvedAddr);
+int32 MM_ResolveSymAddr(MM_SymAddr_t *SymAddr, cpuaddr *ResolvedAddr);
 
 /**
  * \brief Compute CRC from a file
@@ -222,6 +197,7 @@ bool MM_ResolveSymAddr(MM_SymAddr_t *SymAddr, cpuaddr *ResolvedAddr);
  *
  *  \sa #CFE_ES_CalculateCRC, #OS_read
  */
-int32 MM_ComputeCRCFromFile(osal_id_t FileHandle, uint32 *CrcPtr, uint32 TypeCRC);
+int32 MM_ComputeCRCFromFile(osal_id_t FileHandle, uint32 *CrcPtr,
+                            uint32 TypeCRC);
 
 #endif

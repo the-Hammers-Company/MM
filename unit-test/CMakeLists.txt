@@ -9,13 +9,16 @@
 
 add_cfe_coverage_stubs("mm_internal"
   utilities/mm_test_utils.c
-  stubs/mm_mem32_stubs.c
-  stubs/mm_dump_stubs.c
-  stubs/mm_mem8_stubs.c
-  stubs/mm_load_stubs.c
+  stubs/mm_global_stubs.c
   stubs/mm_app_stubs.c
-  stubs/mm_utils_stubs.c
+  stubs/mm_cmds_stubs.c
+  stubs/mm_dispatch_stubs.c
+  stubs/mm_dump_stubs.c
+  stubs/mm_load_stubs.c
+  stubs/mm_mem8_stubs.c
   stubs/mm_mem16_stubs.c
+  stubs/mm_mem32_stubs.c
+  stubs/mm_utils_stubs.c
 )
 
 # Link with the cfe core stubs and unit test assert libs

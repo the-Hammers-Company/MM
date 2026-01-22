@@ -1,8 +1,7 @@
 /************************************************************************
- * NASA Docket No. GSC-18,923-1, and identified as “Core Flight
- * System (cFS) Memory Manager Application version 2.5.1”
+ * NASA Docket No. GSC-19,200-1, and identified as "cFS Draco"
  *
- * Copyright (c) 2021 United States Government as represented by the
+ * Copyright (c) 2023 United States Government as represented by the
  * Administrator of the National Aeronautics and Space Administration.
  * All Rights Reserved.
  *
@@ -19,10 +18,11 @@
 
 /**
  * @file
- *   Specification for the CFS Memory Manger event identifiers.
+ *   Specification for the CFS Memory Manager event identifiers.
  */
-#ifndef MM_EVENTS_H
-#define MM_EVENTS_H
+
+#ifndef MM_EVENTIDS_H
+#define MM_EVENTIDS_H
 
 /**
  * \defgroup cfsmmevents CFS Memory Manager Event IDs
@@ -325,8 +325,8 @@
  *
  *  \par Cause:
  *
- *  This event message is issued when a call to the #CFE_PSP_MemValidateRange routine that
- *  is used to check address parameters fails.
+ *  This event message is issued when a call to the #CFE_PSP_MemValidateRange
+ * routine that is used to check address parameters fails.
  */
 #define MM_OS_MEMVALIDATE_ERR_EID 25
 
@@ -584,8 +584,8 @@
  *
  *  \par Cause:
  *
- *  This event message is issued when a dump symbol table fo file command has been
- *  successfully executed.
+ *  This event message is issued when a dump symbol table fo file command has
+ * been successfully executed.
  */
 #define MM_SYMTBL_TO_FILE_INF_EID 47
 
@@ -643,8 +643,8 @@
  *
  *  \par Cause:
  *
- *  This event message is issued when a request to disable writing to a specified
- *  EEPROM bank results in a success status from the PSP.
+ *  This event message is issued when a request to disable writing to a
+ * specified EEPROM bank results in a success status from the PSP.
  */
 #define MM_EEPROM_WRITE_DIS_INF_EID 53
 
@@ -655,8 +655,8 @@
  *
  *  \par Cause:
  *
- *  This event message is issued when a request to disable writing to a specified
- *  EEPROM bank results in an error status from the PSP.
+ *  This event message is issued when a request to disable writing to a
+ * specified EEPROM bank results in an error status from the PSP.
  */
 #define MM_EEPROM_WRITE_DIS_ERR_EID 54
 
@@ -679,9 +679,10 @@
  *
  *  \par Cause:
  *
- *  This event message is issued when a call to one of the CFE_PSP_MemRead functions
- *  (#CFE_PSP_MemRead8, #CFE_PSP_MemRead16, #CFE_PSP_MemRead32) returns something
- *  other than CFE_PSP_SUCCESS.
+ *  This event message is issued when a call to one of the CFE_PSP_MemRead
+ * functions
+ *  (#CFE_PSP_MemRead8, #CFE_PSP_MemRead16, #CFE_PSP_MemRead32) returns
+ * something other than CFE_PSP_SUCCESS.
  */
 #define MM_PSP_READ_ERR_EID 56
 
@@ -692,9 +693,10 @@
  *
  *  \par Cause:
  *
- *  This event message is issued when a call to one of the CFE_PSP_MemWrite functions
- *  (#CFE_PSP_MemWrite8, #CFE_PSP_MemWrite16, #CFE_PSP_MemWrite32) returns something
- *  other than CFE_PSP_SUCCESS.
+ *  This event message is issued when a call to one of the CFE_PSP_MemWrite
+ * functions
+ *  (#CFE_PSP_MemWrite8, #CFE_PSP_MemWrite16, #CFE_PSP_MemWrite32) returns
+ * something other than CFE_PSP_SUCCESS.
  */
 #define MM_PSP_WRITE_ERR_EID 57
 

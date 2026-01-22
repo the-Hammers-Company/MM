@@ -1,8 +1,7 @@
 /************************************************************************
- * NASA Docket No. GSC-18,923-1, and identified as “Core Flight
- * System (cFS) Memory Manager Application version 2.5.1”
+ * NASA Docket No. GSC-19,200-1, and identified as "cFS Draco"
  *
- * Copyright (c) 2021 United States Government as represented by the
+ * Copyright (c) 2023 United States Government as represented by the
  * Administrator of the National Aeronautics and Space Administration.
  * All Rights Reserved.
  *
@@ -17,30 +16,10 @@
  * limitations under the License.
  ************************************************************************/
 
-/**
- * @file
- *   CFS Memory Manager (MM) Application Message IDs
- */
-#ifndef MM_MSGIDS_H
-#define MM_MSGIDS_H
+#ifndef DEFAULT_MM_MSG_H
+#define DEFAULT_MM_MSG_H
 
-/**
- * \defgroup cfsmmcmdmid CFS Memory Manager Command Message IDs
- * \{
- */
+#include "mm_msgdefs.h"
+#include "mm_msgstruct.h"
 
-#define MM_CMD_MID     0x1888 /**< \brief Msg ID for cmds to mm     */
-#define MM_SEND_HK_MID 0x1889 /**< \brief Msg ID to request mm HK   */
-
-/**\}*/
-
-/**
- * \defgroup cfsmmtlmmid CFS Memory Manager Telemetry Message IDs
- * \{
- */
-
-#define MM_HK_TLM_MID 0x0887 /**< \brief MM Housekeeping Telemetry */
-
-/**\}*/
-
-#endif
+#endif /* DEFAULT_MM_MSG_H */
