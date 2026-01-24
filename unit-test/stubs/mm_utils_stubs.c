@@ -1,8 +1,7 @@
 /************************************************************************
- * NASA Docket No. GSC-18,923-1, and identified as “Core Flight
- * System (cFS) Memory Manager Application version 2.5.1”
+ * NASA Docket No. GSC-19,200-1, and identified as "cFS Draco"
  *
- * Copyright (c) 2021 United States Government as represented by the
+ * Copyright (c) 2023 United States Government as represented by the
  * Administrator of the National Aeronautics and Space Administration.
  * All Rights Reserved.
  *
@@ -19,84 +18,126 @@
 
 /**
  * @file
- *   Unit test stubs for mm_utils.c
+ *
+ * Auto-Generated stub implementations for functions defined in mm_utils header
  */
 
-/************************************************************************
-** Includes
-*************************************************************************/
-#include "mm_app.h"
 #include "mm_utils.h"
-#include "mm_perfids.h"
-#include "mm_msgids.h"
-#include "mm_events.h"
+#include "utgenstub.h"
 
-/************************************************************************
-** UT Includes
-*************************************************************************/
-#include "uttest.h"
-#include "utassert.h"
-#include "utstubs.h"
+/*
+ * ----------------------------------------------------
+ * Generated stub function for MM_ComputeCRCFromFile()
+ * ----------------------------------------------------
+ */
+int32 MM_ComputeCRCFromFile(osal_id_t FileHandle, uint32 *CrcPtr,
+                            uint32 TypeCRC) {
+  UT_GenStub_SetupReturnBuffer(MM_ComputeCRCFromFile, int32);
 
-void MM_ResetHk(void)
-{
-    UT_DEFAULT_IMPL(MM_ResetHk);
+  UT_GenStub_AddParam(MM_ComputeCRCFromFile, osal_id_t, FileHandle);
+  UT_GenStub_AddParam(MM_ComputeCRCFromFile, uint32 *, CrcPtr);
+  UT_GenStub_AddParam(MM_ComputeCRCFromFile, uint32, TypeCRC);
+
+  UT_GenStub_Execute(MM_ComputeCRCFromFile, Basic, NULL);
+
+  return UT_GenStub_GetReturnValue(MM_ComputeCRCFromFile, int32);
 }
 
-void MM_SegmentBreak(void)
-{
-    UT_DEFAULT_IMPL(MM_SegmentBreak);
+/*
+ * ----------------------------------------------------
+ * Generated stub function for MM_ResetHk()
+ * ----------------------------------------------------
+ */
+void MM_ResetHk(void) { UT_GenStub_Execute(MM_ResetHk, Basic, NULL); }
+
+/*
+ * ----------------------------------------------------
+ * Generated stub function for MM_ResolveSymAddr()
+ * ----------------------------------------------------
+ */
+int32 MM_ResolveSymAddr(MM_SymAddr_t *SymAddr, cpuaddr *ResolvedAddr) {
+  UT_GenStub_SetupReturnBuffer(MM_ResolveSymAddr, int32);
+
+  UT_GenStub_AddParam(MM_ResolveSymAddr, MM_SymAddr_t *, SymAddr);
+  UT_GenStub_AddParam(MM_ResolveSymAddr, cpuaddr *, ResolvedAddr);
+
+  UT_GenStub_Execute(MM_ResolveSymAddr, Basic, NULL);
+
+  return UT_GenStub_GetReturnValue(MM_ResolveSymAddr, int32);
 }
 
-bool MM_VerifyCmdLength(const CFE_MSG_Message_t *MsgPtr, size_t ExpectedLength)
-{
-    UT_Stub_RegisterContext(UT_KEY(MM_VerifyCmdLength), MsgPtr);
-    UT_Stub_RegisterContextGenericArg(UT_KEY(MM_VerifyCmdLength), ExpectedLength);
-    return UT_DEFAULT_IMPL(MM_VerifyCmdLength);
+/*
+ * ----------------------------------------------------
+ * Generated stub function for MM_SegmentBreak()
+ * ----------------------------------------------------
+ */
+void MM_SegmentBreak(void) { UT_GenStub_Execute(MM_SegmentBreak, Basic, NULL); }
+
+/*
+ * ----------------------------------------------------
+ * Generated stub function for MM_Verify16Aligned()
+ * ----------------------------------------------------
+ */
+bool MM_Verify16Aligned(cpuaddr Address, size_t Size) {
+  UT_GenStub_SetupReturnBuffer(MM_Verify16Aligned, bool);
+
+  UT_GenStub_AddParam(MM_Verify16Aligned, cpuaddr, Address);
+  UT_GenStub_AddParam(MM_Verify16Aligned, size_t, Size);
+
+  UT_GenStub_Execute(MM_Verify16Aligned, Basic, NULL);
+
+  return UT_GenStub_GetReturnValue(MM_Verify16Aligned, bool);
 }
 
-bool MM_VerifyPeekPokeParams(cpuaddr Address, MM_MemType_t MemType, size_t SizeInBits)
-{
-    UT_Stub_RegisterContextGenericArg(UT_KEY(MM_VerifyPeekPokeParams), Address);
-    UT_Stub_RegisterContextGenericArg(UT_KEY(MM_VerifyPeekPokeParams), MemType);
-    UT_Stub_RegisterContextGenericArg(UT_KEY(MM_VerifyPeekPokeParams), SizeInBits);
-    return UT_DEFAULT_IMPL(MM_VerifyPeekPokeParams);
+/*
+ * ----------------------------------------------------
+ * Generated stub function for MM_Verify32Aligned()
+ * ----------------------------------------------------
+ */
+bool MM_Verify32Aligned(cpuaddr Address, size_t Size) {
+  UT_GenStub_SetupReturnBuffer(MM_Verify32Aligned, bool);
+
+  UT_GenStub_AddParam(MM_Verify32Aligned, cpuaddr, Address);
+  UT_GenStub_AddParam(MM_Verify32Aligned, size_t, Size);
+
+  UT_GenStub_Execute(MM_Verify32Aligned, Basic, NULL);
+
+  return UT_GenStub_GetReturnValue(MM_Verify32Aligned, bool);
 }
 
-bool MM_VerifyLoadDumpParams(cpuaddr Address, MM_MemType_t MemType, size_t SizeInBytes, uint8 VerifyType)
-{
-    UT_Stub_RegisterContextGenericArg(UT_KEY(MM_VerifyLoadDumpParams), Address);
-    UT_Stub_RegisterContextGenericArg(UT_KEY(MM_VerifyLoadDumpParams), MemType);
-    UT_Stub_RegisterContextGenericArg(UT_KEY(MM_VerifyLoadDumpParams), SizeInBytes);
-    UT_Stub_RegisterContextGenericArg(UT_KEY(MM_VerifyLoadDumpParams), VerifyType);
-    return UT_DEFAULT_IMPL(MM_VerifyLoadDumpParams);
+/*
+ * ----------------------------------------------------
+ * Generated stub function for MM_VerifyLoadDumpParams()
+ * ----------------------------------------------------
+ */
+int32 MM_VerifyLoadDumpParams(cpuaddr Address, MM_MemType_Enum_t MemType,
+                              size_t SizeInBytes, uint8 VerifyType) {
+  UT_GenStub_SetupReturnBuffer(MM_VerifyLoadDumpParams, int32);
+
+  UT_GenStub_AddParam(MM_VerifyLoadDumpParams, cpuaddr, Address);
+  UT_GenStub_AddParam(MM_VerifyLoadDumpParams, MM_MemType_Enum_t, MemType);
+  UT_GenStub_AddParam(MM_VerifyLoadDumpParams, size_t, SizeInBytes);
+  UT_GenStub_AddParam(MM_VerifyLoadDumpParams, uint8, VerifyType);
+
+  UT_GenStub_Execute(MM_VerifyLoadDumpParams, Basic, NULL);
+
+  return UT_GenStub_GetReturnValue(MM_VerifyLoadDumpParams, int32);
 }
 
-bool MM_Verify32Aligned(cpuaddr Address, size_t Size)
-{
-    UT_Stub_RegisterContextGenericArg(UT_KEY(MM_Verify32Aligned), Address);
-    UT_Stub_RegisterContextGenericArg(UT_KEY(MM_Verify32Aligned), Size);
-    return UT_DEFAULT_IMPL(MM_Verify32Aligned) != 0;
-}
+/*
+ * ----------------------------------------------------
+ * Generated stub function for MM_VerifyPeekPokeParams()
+ * ----------------------------------------------------
+ */
+int32 MM_VerifyPeekPokeParams(cpuaddr Address, MM_MemType_Enum_t MemType,
+                              size_t SizeInBits) {
+  UT_GenStub_SetupReturnBuffer(MM_VerifyPeekPokeParams, int32);
 
-bool MM_Verify16Aligned(cpuaddr Address, size_t Size)
-{
-    UT_Stub_RegisterContextGenericArg(UT_KEY(MM_Verify16Aligned), Address);
-    UT_Stub_RegisterContextGenericArg(UT_KEY(MM_Verify16Aligned), Size);
-    return UT_DEFAULT_IMPL(MM_Verify16Aligned) != 0;
-}
+  UT_GenStub_AddParam(MM_VerifyPeekPokeParams, cpuaddr, Address);
+  UT_GenStub_AddParam(MM_VerifyPeekPokeParams, MM_MemType_Enum_t, MemType);
+  UT_GenStub_AddParam(MM_VerifyPeekPokeParams, size_t, SizeInBits);
 
-bool MM_ResolveSymAddr(MM_SymAddr_t *SymAddr, cpuaddr *ResolvedAddr)
-{
-    UT_Stub_RegisterContext(UT_KEY(MM_ResolveSymAddr), SymAddr);
-    UT_Stub_RegisterContext(UT_KEY(MM_ResolveSymAddr), ResolvedAddr);
-    return UT_DEFAULT_IMPL(MM_ResolveSymAddr) != 0;
-}
+  UT_GenStub_Execute(MM_VerifyPeekPokeParams, Basic, NULL);
 
-int32 MM_ComputeCRCFromFile(osal_id_t FileHandle, uint32 *CrcPtr, uint32 TypeCRC)
-{
-    UT_Stub_RegisterContextGenericArg(UT_KEY(MM_ComputeCRCFromFile), FileHandle);
-    UT_Stub_RegisterContext(UT_KEY(MM_ComputeCRCFromFile), CrcPtr);
-    UT_Stub_RegisterContextGenericArg(UT_KEY(MM_ComputeCRCFromFile), TypeCRC);
-    return UT_DEFAULT_IMPL(MM_ComputeCRCFromFile);
+  return UT_GenStub_GetReturnValue(MM_VerifyPeekPokeParams, int32);
 }

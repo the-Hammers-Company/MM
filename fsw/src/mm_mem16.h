@@ -1,8 +1,7 @@
 /************************************************************************
- * NASA Docket No. GSC-18,923-1, and identified as “Core Flight
- * System (cFS) Memory Manager Application version 2.5.1”
+ * NASA Docket No. GSC-19,200-1, and identified as "cFS Draco"
  *
- * Copyright (c) 2021 United States Government as represented by the
+ * Copyright (c) 2023 United States Government as represented by the
  * Administrator of the National Aeronautics and Space Administration.
  * All Rights Reserved.
  *
@@ -20,7 +19,7 @@
 /**
  * @file
  *   Specification for the CFS Memory Manager functions that are used
- *   for the conditionally compiled MM_MEM16 optional memory type.
+ *   for the conditionally compiled MM_MemType_MEM16 optional memory type.
  */
 #ifndef MM_MEM16_H
 #define MM_MEM16_H
@@ -28,7 +27,9 @@
 /*************************************************************************
  * Includes
  *************************************************************************/
+#include "common_types.h"
 #include "mm_filedefs.h"
+#include "mm_msg.h"
 
 /*************************************************************************
  * Exported Functions
@@ -43,7 +44,7 @@
  *       only be 16 bit accessible
  *
  *  \par Assumptions, External Events, and Notes:
- *       This function is specific to the optional #MM_MEM16 memory
+ *       This function is specific to the optional #MM_MemType_MEM16 memory
  *       type
  *
  *  \param [in]   FileHandle   The open file handle of the load file
@@ -53,12 +54,11 @@
  *  \param [in]   DestAddress  The destination address for the requested
  *                             load operation
  *
- *  \return Boolean execution status
- *  \retval true  Load successful
- *  \retval false Load failed
+ *  \return Execution status
  */
-bool MM_LoadMem16FromFile(osal_id_t FileHandle, const char *FileName, const MM_LoadDumpFileHeader_t *FileHeader,
-                          cpuaddr DestAddress);
+int32 MM_LoadMem16FromFile(osal_id_t FileHandle, const char *FileName,
+                           const MM_LoadDumpFileHeader_t *FileHeader,
+                           cpuaddr DestAddress);
 
 /**
  * \brief Memory16 dump to file
@@ -69,7 +69,7 @@ bool MM_LoadMem16FromFile(osal_id_t FileHandle, const char *FileName, const MM_L
  *       accessible and store the data in a file
  *
  *  \par Assumptions, External Events, and Notes:
- *       This function is specific to the optional #MM_MEM16 memory
+ *       This function is specific to the optional #MM_MemType_MEM16 memory
  *       type
  *
  *  \param [in]   FileHandle   The open file handle of the dump file
@@ -77,28 +77,29 @@ bool MM_LoadMem16FromFile(osal_id_t FileHandle, const char *FileName, const MM_L
  *                             the dump file name
  *  \param [in]   FileHeader   Pointer to file header
  *
- *  \return Boolean execution status
- *  \retval true  Dump successful
- *  \retval false Dump failed
+ *  \return Execution status
  */
-bool MM_DumpMem16ToFile(osal_id_t FileHandle, const char *FileName, const MM_LoadDumpFileHeader_t *FileHeader);
+int32 MM_DumpMem16ToFile(osal_id_t FileHandle, const char *FileName,
+                         const MM_LoadDumpFileHeader_t *FileHeader);
 
 /**
  * \brief Fill memory16
  *
- *  \par Description
- *       Support function for #MM_FillMemCmd. This routine will
- *       load memory that is defined to only be 16 bit accessible
- *       with a command specified fill pattern
+ * \par Description
+ *      Support function for #MM_FillMemCmd. This routine will
+ *      load memory that is defined to only be 16 bit accessible
+ *      with a command specified fill pattern
  *
- *  \par Assumptions, External Events, and Notes:
- *       This function is specific to the optional #MM_MEM16 memory
- *       type
+ * \par Assumptions, External Events, and Notes:
+ *      This function is specific to the optional #MM_MemType_MEM16 memory
+ *      type
  *
- *  \param [in]   DestAddress   The destination address for the fill
+ * \param [in]   DestAddress   The destination address for the fill
  *                              operation
- *  \param [in]   CmdPtr        Pointer to command
+ * \param [in]   CmdPtr        Pointer to command
+ *
+ * \return Execution status
  */
-bool MM_FillMem16(cpuaddr DestAddress, const MM_FillMemCmd_t *CmdPtr);
+int32 MM_FillMem16(cpuaddr DestAddress, const MM_FillMemCmd_t *CmdPtr);
 
 #endif

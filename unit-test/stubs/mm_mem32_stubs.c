@@ -1,8 +1,7 @@
 /************************************************************************
- * NASA Docket No. GSC-18,923-1, and identified as “Core Flight
- * System (cFS) Memory Manager Application version 2.5.1”
+ * NASA Docket No. GSC-19,200-1, and identified as "cFS Draco"
  *
- * Copyright (c) 2021 United States Government as represented by the
+ * Copyright (c) 2023 United States Government as represented by the
  * Administrator of the National Aeronautics and Space Administration.
  * All Rights Reserved.
  *
@@ -19,45 +18,65 @@
 
 /**
  * @file
- *   Unit test stubs for mm_mem32.c
+ *
+ * Auto-Generated stub implementations for functions defined in mm_mem32 header
  */
 
-/************************************************************************
-** Includes
-*************************************************************************/
 #include "mm_mem32.h"
-#include "mm_app.h"
-#include "mm_events.h"
-#include "mm_utils.h"
+#include "utgenstub.h"
 
-/************************************************************************
-** UT Includes
-*************************************************************************/
-#include "uttest.h"
-#include "utassert.h"
-#include "utstubs.h"
+/*
+ * ----------------------------------------------------
+ * Generated stub function for MM_DumpMem32ToFile()
+ * ----------------------------------------------------
+ */
+int32 MM_DumpMem32ToFile(osal_id_t FileHandle, const char *FileName,
+                         const MM_LoadDumpFileHeader_t *FileHeader) {
+  UT_GenStub_SetupReturnBuffer(MM_DumpMem32ToFile, int32);
 
-bool MM_LoadMem32FromFile(osal_id_t FileHandle, const char *FileName, const MM_LoadDumpFileHeader_t *FileHeader,
-                          cpuaddr DestAddress)
-{
-    UT_Stub_RegisterContextGenericArg(UT_KEY(MM_LoadMem32FromFile), FileHandle);
-    UT_Stub_RegisterContext(UT_KEY(MM_LoadMem32FromFile), FileName);
-    UT_Stub_RegisterContext(UT_KEY(MM_LoadMem32FromFile), FileHeader);
-    UT_Stub_RegisterContextGenericArg(UT_KEY(MM_LoadMem32FromFile), DestAddress);
-    return UT_DEFAULT_IMPL(MM_LoadMem32FromFile);
+  UT_GenStub_AddParam(MM_DumpMem32ToFile, osal_id_t, FileHandle);
+  UT_GenStub_AddParam(MM_DumpMem32ToFile, const char *, FileName);
+  UT_GenStub_AddParam(MM_DumpMem32ToFile, const MM_LoadDumpFileHeader_t *,
+                      FileHeader);
+
+  UT_GenStub_Execute(MM_DumpMem32ToFile, Basic, NULL);
+
+  return UT_GenStub_GetReturnValue(MM_DumpMem32ToFile, int32);
 }
 
-bool MM_DumpMem32ToFile(osal_id_t FileHandle, const char *FileName, const MM_LoadDumpFileHeader_t *FileHeader)
-{
-    UT_Stub_RegisterContextGenericArg(UT_KEY(MM_DumpMem32ToFile), FileHandle);
-    UT_Stub_RegisterContext(UT_KEY(MM_DumpMem32ToFile), FileName);
-    UT_Stub_RegisterContext(UT_KEY(MM_DumpMem32ToFile), FileHeader);
-    return UT_DEFAULT_IMPL(MM_DumpMem32ToFile);
+/*
+ * ----------------------------------------------------
+ * Generated stub function for MM_FillMem32()
+ * ----------------------------------------------------
+ */
+int32 MM_FillMem32(cpuaddr DestAddress, const MM_FillMemCmd_t *CmdPtr) {
+  UT_GenStub_SetupReturnBuffer(MM_FillMem32, int32);
+
+  UT_GenStub_AddParam(MM_FillMem32, cpuaddr, DestAddress);
+  UT_GenStub_AddParam(MM_FillMem32, const MM_FillMemCmd_t *, CmdPtr);
+
+  UT_GenStub_Execute(MM_FillMem32, Basic, NULL);
+
+  return UT_GenStub_GetReturnValue(MM_FillMem32, int32);
 }
 
-bool MM_FillMem32(cpuaddr DestAddress, const MM_FillMemCmd_t *CmdPtr)
-{
-    UT_Stub_RegisterContextGenericArg(UT_KEY(MM_FillMem32), DestAddress);
-    UT_Stub_RegisterContext(UT_KEY(MM_FillMem32), CmdPtr);
-    return UT_DEFAULT_IMPL(MM_FillMem32);
+/*
+ * ----------------------------------------------------
+ * Generated stub function for MM_LoadMem32FromFile()
+ * ----------------------------------------------------
+ */
+int32 MM_LoadMem32FromFile(osal_id_t FileHandle, const char *FileName,
+                           const MM_LoadDumpFileHeader_t *FileHeader,
+                           cpuaddr DestAddress) {
+  UT_GenStub_SetupReturnBuffer(MM_LoadMem32FromFile, int32);
+
+  UT_GenStub_AddParam(MM_LoadMem32FromFile, osal_id_t, FileHandle);
+  UT_GenStub_AddParam(MM_LoadMem32FromFile, const char *, FileName);
+  UT_GenStub_AddParam(MM_LoadMem32FromFile, const MM_LoadDumpFileHeader_t *,
+                      FileHeader);
+  UT_GenStub_AddParam(MM_LoadMem32FromFile, cpuaddr, DestAddress);
+
+  UT_GenStub_Execute(MM_LoadMem32FromFile, Basic, NULL);
+
+  return UT_GenStub_GetReturnValue(MM_LoadMem32FromFile, int32);
 }

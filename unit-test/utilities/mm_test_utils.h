@@ -1,8 +1,7 @@
 /************************************************************************
- * NASA Docket No. GSC-18,923-1, and identified as “Core Flight
- * System (cFS) Memory Manager Application version 2.5.1”
+ * NASA Docket No. GSC-19,200-1, and identified as "cFS Draco"
  *
- * Copyright (c) 2021 United States Government as represented by the
+ * Copyright (c) 2023 United States Government as represented by the
  * Administrator of the National Aeronautics and Space Administration.
  * All Rights Reserved.
  *
@@ -28,56 +27,65 @@
 ** Includes
 *************************************************************************/
 #include "mm_app.h"
+#include "mm_filedefs.h"
 #include "utstubs.h"
 
-extern MM_AppData_t MM_AppData;
+/* ====== */
+/* Macros */
+/* ====== */
 
-/*
- * Global context structures
- */
-typedef struct
-{
-    uint16 EventID;
-    uint16 EventType;
-    char   Spec[CFE_MISSION_EVS_MAX_MESSAGE_LENGTH];
+#define ADD_TEST(test) UtTest_Add(test, MM_Test_Setup, MM_Test_TearDown, #test)
+#define MM_UT_OBJID_1 OS_ObjectIdFromInteger(1)
+#define MM_UT_MID_1 CFE_SB_ValueToMsgId(1)
+#define UT_MAX_SENDEVENT_DEPTH 4
+
+/* ======== */
+/* Typedefs */
+/* ======== */
+
+typedef struct {
+  uint16 EventID;
+  uint16 EventType;
+  char Spec[CFE_MISSION_EVS_MAX_MESSAGE_LENGTH];
 } CFE_EVS_SendEvent_context_t;
 
-typedef struct
-{
-    char Spec[CFE_MISSION_EVS_MAX_MESSAGE_LENGTH];
+typedef struct {
+  char Spec[CFE_MISSION_EVS_MAX_MESSAGE_LENGTH];
 } CFE_ES_WriteToSysLog_context_t;
 
-extern CFE_EVS_SendEvent_context_t    context_CFE_EVS_SendEvent[];
+/* =========== */
+/* Global Data */
+/* =========== */
+
+extern CFE_EVS_SendEvent_context_t context_CFE_EVS_SendEvent[3];
 extern CFE_ES_WriteToSysLog_context_t context_CFE_ES_WriteToSysLog;
 
-/* Command buffer typedef for any handler */
-typedef union
-{
-    CFE_SB_Buffer_t         Buf;
-    MM_NoArgsCmd_t          NoArgsCmd;
-    MM_PeekCmd_t            PeekCmd;
-    MM_PokeCmd_t            PokeCmd;
-    MM_LoadMemWIDCmd_t      LoadMemWIDCmd;
-    MM_DumpInEventCmd_t     DumpInEventCmd;
-    MM_LoadMemFromFileCmd_t LoadMemFromFileCmd;
-    MM_DumpMemToFileCmd_t   DumpMemToFileCmd;
-    MM_FillMemCmd_t         FillMemCmd;
-    MM_LookupSymCmd_t       LookupSymCmd;
-    MM_SymTblToFileCmd_t    SymTblToFileCmd;
-    MM_EepromWriteEnaCmd_t  EepromWriteEnaCmd;
-    MM_EepromWriteDisCmd_t  EepromWriteDisCmd;
-} UT_CmdBuf_t;
+/* ======== */
+/* Handlers */
+/* ======== */
 
-extern UT_CmdBuf_t UT_CmdBuf;
+void UT_Handler_CFE_EVS_SendEvent(void *UserObj, UT_EntryKey_t FuncKey,
+                                  const UT_StubContext_t *Context, va_list va);
+void UT_Handler_CFE_ES_WriteToSysLog(void *UserObj, UT_EntryKey_t FuncKey,
+                                     const UT_StubContext_t *Context,
+                                     va_list va);
+void UT_Handler_MM_ResolveSymAddr(void *UserObj, UT_EntryKey_t FuncKey,
+                                  const UT_StubContext_t *Context);
+void UT_Handler_MM_WriteFileHeaders(void *UserObj, UT_EntryKey_t FuncKey,
+                                    const UT_StubContext_t *Context);
+void UT_Handler_MM_ReadFileHeaders(void *UserObj, UT_EntryKey_t FuncKey,
+                                   const UT_StubContext_t *Context);
+void UT_Handler_MM_ComputeCRCFromFile(void *UserObj, UT_EntryKey_t FuncKey,
+                                      const UT_StubContext_t *Context);
+void UT_Handler_CFE_SB_MessageStringGet(void *UserObj, UT_EntryKey_t FuncKey,
+                                        const UT_StubContext_t *Context);
 
-/* Unit test ids */
-#define MM_UT_OBJID_1 OS_ObjectIdFromInteger(1)
-#define MM_UT_MID_1   CFE_SB_ValueToMsgId(1)
+/* =================== */
+/* Function Prototypes */
+/* =================== */
 
-/*
- * Function Definitions
- */
-
+void MM_Test_Verify_Event(uint8 IssuedOrder, uint16 EventId, uint16 EventType,
+                          const char *EventText);
 void MM_Test_Setup(void);
 void MM_Test_TearDown(void);
 

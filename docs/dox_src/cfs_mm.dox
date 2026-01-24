@@ -144,31 +144,31 @@
 
   There are five different memory types that can be specified in MM commands. These are:
 
-  MM_RAM  
+  MM_MemType_RAM  
   Generic term for RAM including DRAM, and SRAM. Memory mapped I/O that is byte addressable and 
   requires no special code to support is accessed with this memory type. 
 
-  MM_EEPROM 
+  MM_MemType_EEPROM 
   Generic term used for non-volatile memory including EEPROM, Flash, PROM, etc.
   MM places no address or data alignment restrictions on this memory type. Any special alignment
   requirements imposed by the hardware are handled in the OSAL code for the target platform in question.
   MM provides commands to enable and disable EEPROM write protection via a PSP interface.
 
-  MM_MEM32 
+  MM_MemType_MEM32 
   Addressable memory that must be read from and written to in 32 bit double words. Inclusion 
   of this type is controlled by a conditional compile switch. For this memory type, MM will use
   the #CFE_PSP_MemRead32 and #CFE_PSP_MemWrite32 functions instead of the more generic #CFE_PSP_MemCpy. 
   Address and data size parameters for this memory type must be 32 bit aligned or an error event will be
   issued and the current operation aborted.
 
-  MM_MEM16
+  MM_MemType_MEM16
   Addressable memory that must be read from and written to in 16 bit words. Inclusion of this type is 
   controlled by a conditional compile switch. For this memory type, MM will use the #CFE_PSP_MemRead16 and 
   #CFE_PSP_MemWrite16 OSAL functions instead of the more generic #CFE_PSP_MemCpy. Address and data size 
   parameters for this memory type must be 16 bit aligned or an error event will be issued and the current 
   operation aborted.
 
-  MM_MEM8
+  MM_MemType_MEM8
   Addressable memory that must be read from and written to in 8 bit bytes. Inclusion of this type is 
   controlled by a conditional compile switch. For this memory type, MM will use the #CFE_PSP_MemRead8 and 
   #CFE_PSP_MemWrite8 OSAL functions instead of the more generic #CFE_PSP_MemCpy. 
@@ -228,7 +228,7 @@
   
   A ground command is available in the MM app that allows the user to dump the OS Symbol Table to a file.  The
   MM app calls the OSAL symbol table dump utility, which performs the operation.  The dump file name is specified
-  in the ground command and is limited to #OS_MAX_PATH_LEN - 1 characters in size.  Once the dump is completed,
+  in the ground command and is limited to #CFE_MISSION_MAX_PATH_LEN - 1 characters in size.  Once the dump is completed,
   the file may be downloaded.
 **/
 
@@ -254,7 +254,7 @@
 
   Since the MM application uses files for dumps and loads, directories and file volumes need to
   be setup and initialized correctly through the cFE for these operations to work properly. MM 
-  will use the full path specified in a command message (up to the max specified by #OS_MAX_PATH_LEN)
+  will use the full path specified in a command message (up to the max specified by #CFE_MISSION_MAX_PATH_LEN)
   without modification for file operations.
   
   MM relies on the OSAL for validation of address arguments. It uses the function 
@@ -262,7 +262,7 @@
   The memory map used by #CFE_PSP_MemValidateRange needs to be setup correctly for the platform, otherwise
   these parameter checks may fail unexpectedly.
     
-  Code to support the MM_MEM32, MM_MEM16, and MM_MEM8 memory types (see \ref cfsmmugmemtypes) is
+  Code to support the MM_MemType_MEM32, MM_MemType_MEM16, and MM_MemType_MEM8 memory types (see \ref cfsmmugmemtypes) is
   conditionally compiled based upon configuration parameter settings (see \ref cfsmmcfgpg). If
   support for these types is not needed, excluding them can reduce the MM code footprint.
   
@@ -324,15 +324,15 @@
   </I>
 
   <B> (Q)
-     What's the difference between the default #MM_RAM memory type and the #MM_MEM8 memory type?
+     What's the difference between the default #MM_MemType_RAM memory type and the #MM_MemType_MEM8 memory type?
      If I need to read or write an odd number of bytes why couldn't I use the default commands?
   </B> <BR> <BR> <I>
-     The load and dump operations on #MM_RAM can read/write an odd number of bytes, but the
+     The load and dump operations on #MM_MemType_RAM can read/write an odd number of bytes, but the
      low-level implementation (the utilities called by the operations) differs from those
-     used on #MM_MEM8 memory type operations.  #MM_MEM8 load/dump operations use the #CFE_PSP_MemRead8
+     used on #MM_MemType_MEM8 memory type operations.  #MM_MemType_MEM8 load/dump operations use the #CFE_PSP_MemRead8
      and #CFE_PSP_MemWrite8 utilities, which do byte-by-byte reads and writes.  The
-     #MM_RAM load/dump operations use the C-library memcpy function, which can be dependent
-     on the compiler you use for your mission.  This may be acceptable, but #MM_MEM8 is available
+     #MM_MemType_RAM load/dump operations use the C-library memcpy function, which can be dependent
+     on the compiler you use for your mission.  This may be acceptable, but #MM_MemType_MEM8 is available
      to guarantee byte-by-byte reads and writes. 
   </I>
   
@@ -340,9 +340,9 @@
      I don't need a special 32-bit/16-bit/8-bit load and dump capability for my mission.
      Do I have to leave this code in the application?
   </B> <BR> <BR> <I>
-     No.  #MM_MEM8, #MM_MEM16, and #MM_MEM32 memory types are conditionally compiled in the
-     application through the switches #MM_OPT_CODE_MEM8_MEMTYPE, #MM_OPT_CODE_MEM16_MEMTYPE,
-     and #MM_OPT_CODE_MEM32_MEMTYPE, respectively.  Setting any of these switches to FALSE
+     No.  #MM_MemType_MEM8, #MM_MemType_MEM16, and #MM_MemType_MEM32 memory types are conditionally compiled in the
+     application through the switches #MM_INTERNAL_OPT_CODE_MEM8_MEMTYPE, #MM_INTERNAL_OPT_CODE_MEM16_MEMTYPE,
+     and #MM_INTERNAL_OPT_CODE_MEM32_MEMTYPE, respectively.  Setting any of these switches to FALSE
      in the mm_platform_cfg.h configuration file will exclude that code from your application.
 
      If your ground system includes commands for these operations, MM will return an "invalid

@@ -1,8 +1,7 @@
 /************************************************************************
- * NASA Docket No. GSC-18,923-1, and identified as “Core Flight
- * System (cFS) Memory Manager Application version 2.5.1”
+ * NASA Docket No. GSC-19,200-1, and identified as "cFS Draco"
  *
- * Copyright (c) 2021 United States Government as represented by the
+ * Copyright (c) 2023 United States Government as represented by the
  * Administrator of the National Aeronautics and Space Administration.
  * All Rights Reserved.
  *
@@ -29,8 +28,8 @@
  * Includes
  *************************************************************************/
 #include "cfe.h"
-#include "mm_msg.h"
 #include "mm_filedefs.h"
+#include "mm_msg.h"
 
 /*************************************************************************
  * Exported Functions
@@ -50,7 +49,7 @@
  *  \param [in]   DestAddress   The destination address for the poke
  *                              operation
  */
-bool MM_PokeMem(const MM_PokeCmd_t *CmdPtr, cpuaddr DestAddress);
+CFE_Status_t MM_PokeMem(const MM_PokeCmd_t *CmdPtr, cpuaddr DestAddress);
 
 /**
  * \brief Eeprom poke
@@ -65,15 +64,17 @@ bool MM_PokeMem(const MM_PokeCmd_t *CmdPtr, cpuaddr DestAddress);
  *  \param [in]   CmdPtr        Pointer to command
  *  \param [in]   DestAddress   The destination address for the poke
  *                              operation
+ *
+ * \return Execution status
  */
-bool MM_PokeEeprom(const MM_PokeCmd_t *CmdPtr, cpuaddr DestAddress);
+CFE_Status_t MM_PokeEeprom(const MM_PokeCmd_t *CmdPtr, cpuaddr DestAddress);
 
 /**
  * \brief Load memory with interrupts disabled
  *
  *  \par Description
  *       Support function for #MM_LoadMemWIDCmd. This routine will
- *       load up to #MM_MAX_UNINTERRUPTIBLE_DATA bytes into
+ *       load up to #MM_INTERFACE_MAX_UNINTERRUPTIBLE_DATA bytes into
  *       ram with interrupts disabled during the actual load
  *
  *  \par Assumptions, External Events, and Notes:
@@ -102,12 +103,11 @@ bool MM_LoadMemWID(const MM_LoadMemWIDCmd_t *CmdPtr, cpuaddr DestAddress);
  *  \param [in]   DestAddress  The destination address for the requested
  *                             load operation
  *
- *  \return Boolean execution status
- *  \retval true Load from file successful
- *  \retval false Load from file failed
+ *  \return Execution status
  */
-bool MM_LoadMemFromFile(osal_id_t FileHandle, const char *FileName, const MM_LoadDumpFileHeader_t *FileHeader,
-                        cpuaddr DestAddress);
+int32 MM_LoadMemFromFile(osal_id_t FileHandle, const char *FileName,
+                         const MM_LoadDumpFileHeader_t *FileHeader,
+                         cpuaddr DestAddress);
 
 /**
  * \brief Verify load file size
@@ -125,11 +125,10 @@ bool MM_LoadMemFromFile(osal_id_t FileHandle, const char *FileName, const MM_Loa
  *                             the load file name
  *  \param [in]   FileHeader   Pointer to file header
  *
- *  \return Boolean load file size verification result
- *  \retval true  Load file size verification success
- *  \retval false Load file size verification failure
+ *  \return Execution status
  */
-bool MM_VerifyLoadFileSize(const char *FileName, const MM_LoadDumpFileHeader_t *FileHeader);
+int32 MM_VerifyLoadFileSize(const char *FileName,
+                            const MM_LoadDumpFileHeader_t *FileHeader);
 
 /**
  * \brief Read the cFE primary and MM secondary file headers
@@ -151,12 +150,11 @@ bool MM_VerifyLoadFileSize(const char *FileName, const MM_LoadDumpFileHeader_t *
  *  \param [out]  MMHeader     Contents of the MM secondary file header
  *                             structure for the specified file.
  *
- *  \return Boolean execution status
- *  \retval true  Headers read successfully
- *  \retval false Headers read failed
+ *  \return Execution status
  */
-bool MM_ReadFileHeaders(const char *FileName, osal_id_t FileHandle, CFE_FS_Header_t *CFEHeader,
-                        MM_LoadDumpFileHeader_t *MMHeader);
+int32 MM_ReadFileHeaders(const char *FileName, osal_id_t FileHandle,
+                         CFE_FS_Header_t *CFEHeader,
+                         MM_LoadDumpFileHeader_t *MMHeader);
 
 /**
  * \brief Fill memory
@@ -171,72 +169,6 @@ bool MM_ReadFileHeaders(const char *FileName, osal_id_t FileHandle, CFE_FS_Heade
  *  \param [in]   DestAddress The destination address for the fill operation
  *  \param [in]   CmdPtr      Pointer to command
  */
-bool MM_FillMem(cpuaddr DestAddress, const MM_FillMemCmd_t *CmdPtr);
-
-/**
- * \brief Process memory poke command
- *
- *  \par Description
- *       Processes the memory poke command that will load a memory
- *       location with data specified in the command message.
- *
- *  \par Assumptions, External Events, and Notes:
- *       None
- *
- *  \param [in]   BufPtr   Pointer to Software Bus buffer
- *
- *  \sa #MM_POKE_CC
- */
-bool MM_PokeCmd(const CFE_SB_Buffer_t *BufPtr);
-
-/**
- * \brief Process load memory with interrupts disabled command
- *
- *  \par Description
- *       Processes the load memory with interrupts disabled command
- *       that will load up to #MM_MAX_UNINTERRUPTIBLE_DATA bytes into
- *       ram with interrupts disabled during the actual load
- *
- *  \par Assumptions, External Events, and Notes:
- *       None
- *
- *  \param [in]   BufPtr   Pointer to Software Bus buffer
- *
- *  \sa #MM_LOAD_MEM_WID_CC
- */
-bool MM_LoadMemWIDCmd(const CFE_SB_Buffer_t *BufPtr);
-
-/**
- * \brief Process memory load from file command
- *
- *  \par Description
- *       Processes the memory load from file command that will read a
- *       file and store the data in the command specified address range
- *       of memory.
- *
- *  \par Assumptions, External Events, and Notes:
- *       None
- *
- *  \param [in]   BufPtr   Pointer to Software Bus buffer
- *
- *  \sa #MM_LOAD_MEM_FROM_FILE_CC
- */
-bool MM_LoadMemFromFileCmd(const CFE_SB_Buffer_t *BufPtr);
-
-/**
- * \brief Process memory fill command
- *
- *  \par Description
- *       Processes the memory fill command that will load an address
- *       range of memory with the command specified fill pattern
- *
- *  \par Assumptions, External Events, and Notes:
- *       None
- *
- *  \param [in]   BufPtr   Pointer to Software Bus buffer
- *
- *  \sa #MM_FILL_MEM_CC
- */
-bool MM_FillMemCmd(const CFE_SB_Buffer_t *BufPtr);
+void MM_FillMem(cpuaddr DestAddress, const MM_FillMemCmd_t *CmdPtr);
 
 #endif

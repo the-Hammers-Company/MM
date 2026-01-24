@@ -1,8 +1,7 @@
 /************************************************************************
- * NASA Docket No. GSC-18,923-1, and identified as “Core Flight
- * System (cFS) Memory Manager Application version 2.5.1”
+ * NASA Docket No. GSC-19,200-1, and identified as "cFS Draco"
  *
- * Copyright (c) 2021 United States Government as represented by the
+ * Copyright (c) 2023 United States Government as represented by the
  * Administrator of the National Aeronautics and Space Administration.
  * All Rights Reserved.
  *
@@ -27,7 +26,9 @@
 /*************************************************************************
  * Includes
  *************************************************************************/
-#include "mm_msg.h"
+
+#include "common_types.h"
+#include "mm_extern_typedefs.h"
 
 /*************************************************************************
  * Type Definitions
@@ -40,13 +41,13 @@
  * and restore capability). This MM header is the secondary header, the
  * standard cFE file header is primary header for all load and dump files.
  */
-typedef struct
-{
-    MM_SymAddr_t SymAddress; /**< \brief Symbolic load address or fully resolved dump address */
-    uint32       NumOfBytes; /**< \brief Bytes to load or bytes dumped      */
-    uint32       Crc;        /**< \brief CRC value for load or dump data    */
-    MM_MemType_t MemType;    /**< \brief Memory type used                   */
-    uint8        Spare[3];   /**< \brief Structure Padding                  */
+typedef struct {
+  MM_SymAddr_t SymAddress;   /**< \brief Symbolic load address or fully resolved
+                                dump address */
+  uint32 NumOfBytes;         /**< \brief Bytes to load or bytes dumped      */
+  uint32 Crc;                /**< \brief CRC value for load or dump data    */
+  MM_MemType_Enum_t MemType; /**< \brief Memory type used                   */
+  uint8 Spare[3];            /**< \brief Structure Padding                  */
 } MM_LoadDumpFileHeader_t;
 
 #endif
