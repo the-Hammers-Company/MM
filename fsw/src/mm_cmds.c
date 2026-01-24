@@ -111,8 +111,7 @@ CFE_Status_t MM_ResetCountersCmd(const MM_ResetCountersCmd_t *Msg) {
 /*                                                                 */
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 CFE_Status_t MM_LookupSymCmd(const MM_LookupSymCmd_t *Msg) {
-  int32 OS_Status = OS_ERROR; /* Set to error instead of success since we
-                                 explicitly test for success */
+  int32 OS_Status;
   cpuaddr ResolvedAddr = 0;
   char SymName[CFE_MISSION_MAX_PATH_LEN];
 
@@ -162,8 +161,7 @@ CFE_Status_t MM_LookupSymCmd(const MM_LookupSymCmd_t *Msg) {
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 CFE_Status_t MM_SymTblToFileCmd(const MM_SymTblToFileCmd_t *Msg) {
   char FileName[CFE_MISSION_MAX_PATH_LEN];
-  int32 OS_Status = OS_ERROR; /* Set to error instead of success since we
-                                 explicitly test for success */
+  int32 OS_Status;
 
   /* Make sure string is null terminated before attempting to process it */
   CFE_SB_MessageStringGet(FileName, Msg->Payload.FileName, NULL,
@@ -208,8 +206,7 @@ CFE_Status_t MM_SymTblToFileCmd(const MM_SymTblToFileCmd_t *Msg) {
 /*                                                                 */
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 CFE_Status_t MM_EepromWriteEnaCmd(const MM_EepromWriteEnaCmd_t *Msg) {
-  CFE_Status_t cFE_Status =
-      CFE_PSP_ERROR; /* Set to error since we explicitly test for success */
+  CFE_Status_t cFE_Status;
 
   /*
   ** Call the cFE to write-enable the requested bank
@@ -243,8 +240,7 @@ CFE_Status_t MM_EepromWriteEnaCmd(const MM_EepromWriteEnaCmd_t *Msg) {
 /*                                                                 */
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 CFE_Status_t MM_EepromWriteDisCmd(const MM_EepromWriteDisCmd_t *Msg) {
-  CFE_Status_t cFE_Status =
-      CFE_PSP_ERROR; /* Set to error since we explicitly test for success */
+  CFE_Status_t cFE_Status;
 
   /*
   ** Call the cFE to write-enable the requested bank
